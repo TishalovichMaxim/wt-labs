@@ -1,0 +1,1 @@
+Main-Class: by.lab1.task9.Task9

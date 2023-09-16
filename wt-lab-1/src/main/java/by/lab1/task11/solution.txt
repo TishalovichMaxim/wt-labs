@@ -1,0 +1,5 @@
+My terminal location is "~/IdeaProjects/wt-lab-1/src/main/java"
+
+Commands:
+jar cfm by/lab1/task9/task9.jar by/lab1/task11/MANIFEST.MF by/lab1/task9/*.class    //creating jar file
+java -jar by/lab1/task9/task9.jar //running jar file

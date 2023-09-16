@@ -1,0 +1,5 @@
+My terminal location is "~/IdeaProjects/wt-lab-1/src/main/java"
+
+Commands:
+javac by/lab1/task9/*.java //to compile task9
+java by.lab1.task9.Task9 //running program
