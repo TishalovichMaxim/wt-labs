@@ -24,7 +24,8 @@ public class Book implements Cloneable, Comparable<Book> {
             return false;
         }
         Book book = (Book) o;
-        return title.equals(book.title)
+        return isbn == book.isbn
+                && title.equals(book.title)
                 && author.equals(book.author)
                 && price == book.price;
     }
@@ -33,6 +34,7 @@ public class Book implements Cloneable, Comparable<Book> {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + price;
+        hash = 31 * hash + (int) (isbn ^ (isbn >>> 32));
         hash = 31 * hash + (title == null ? 0 : title.hashCode());
         hash = 31 * hash + (author == null ? 0 : author.hashCode());
         return hash;
@@ -43,7 +45,8 @@ public class Book implements Cloneable, Comparable<Book> {
         return getClass().getSimpleName() + ": "
                 + "price=" + price + ";"
                 + "title=" + title + ";"
-                + "author=" + author + ";";
+                + "author=" + author + ";"
+                + "isbn=" + isbn + ";";
     }
 
     @Override
