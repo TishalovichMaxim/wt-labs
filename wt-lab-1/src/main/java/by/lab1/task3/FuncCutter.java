@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncCutter {
-    private static final double EPS = 0.0001;
-
     public List<Point> cut(Function function, double left,
                            double right, double step) {
         if (left > right) {
