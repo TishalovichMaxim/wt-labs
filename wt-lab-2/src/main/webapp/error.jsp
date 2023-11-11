@@ -31,7 +31,7 @@
 
 <%@include file="navbar.jsp"%>
 <div class="container text-center">
-    <div class="error-caption">Error</div>
+    <div class="error-caption"><fmt:message key="error.error" /></div>
     <img src="images/4044.jpg" alt="Error Image" class="error-image">
 </div>
 <%@include file="footer.html"%>

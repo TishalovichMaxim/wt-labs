@@ -29,31 +29,32 @@
 <body>
 <%@include file="navbar.jsp"%>
 <div class="container">
-    <h1>Add New Anime</h1>
+    <h1><fmt:message key="add_anime.add_new_anime" /></h1>
     <form method="POST" action="/your_anime_list/controller" enctype="multipart/form-data" >
         <input type="hidden" name="command" value="do_add_anime" />
         <div class="form-group">
-            <label for="animeName">Anime Name</label>
+            <label for="animeName"><fmt:message key="add_anime.anime_name" /></label>
             <input type="text" class="form-control" id="animeName" placeholder="Enter the anime name" name="animeName">
         </div>
         <div class="form-group">
-            <label for="authorName">Author Name</label>
+            <label for="authorName"><fmt:message key="anime.author" /></label>
             <input type="text" class="form-control" id="authorName" placeholder="Enter the author name" name="authorName">
         </div>
         <div class="form-group">
-            <label for="animeYear">Anime Year</label>
+            <label for="animeYear"><fmt:message key="anime.year" /></label>
             <input type="number" class="form-control" id="animeYear" placeholder="Enter the anime year" name="animeYear">
         </div>
         <div class="form-group">
             <div>
-                <label for="animeImage">Anime Image</label>
+                <label for="animeImage"><fmt:message key="add_anime.anime_image" /></label>
             </div>
             <input type="file" class="form-control-file" id="animeImage" name="animeImage">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="add_anime.submit" /></button>
     </form>
 </div>
 <%@include file="footer.html"%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>

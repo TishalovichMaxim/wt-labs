@@ -30,18 +30,22 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2>${login_label}</h2>
+            <h2><fmt:message key="auth.login" /></h2>
             <form method="POST" action="/your_anime_list/controller">
                 <input type="hidden" name="command" value="do_login" />
                 <div class="form-group">
-                    <label for="login">${nickname_label}</label>
-                    <input name="login" class="form-control" id="login" placeholder="${nickname_placeholder}" pattern="[a-zA-Z][a-zA-Z0-9]{5,25}" required>
+                    <label for="login"><fmt:message key="auth.nickname" /></label>
+                    <input name="login" class="form-control" id="login"
+                           placeholder="<fmt:message key="auth.nickname_placeholder" />"
+                           pattern="[a-zA-Z][a-zA-Z0-9]{5,25}" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">${password_label}</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="${password_placeholder}" pattern="[a-zA-Z0-9]{6,26}" required>
+                    <label for="password"><fmt:message key="auth.password" /></label>
+                    <input name="password" type="password" class="form-control"
+                           id="password" placeholder="<fmt:message key="auth.password_placeholder" />"
+                           pattern="[a-zA-Z0-9]{6,26}" required>
                 </div>
-                <button type="submit" class="btn btn-primary">${login_label}</button>
+                <button type="submit" class="btn btn-primary"><fmt:message key="auth.login" /></button>
             </form>
         </div>
    </div>

@@ -30,22 +30,26 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2>${registration_label}</h2>
+                <h2><fmt:message key="auth.registration" /></h2>
                 <form method="POST" action="/your_anime_list/controller">
                     <input type="hidden" name="command" value="do_register" />
                     <div class="form-group">
-                        <label for="fullname">${nickname_label}</label>
-                        <input type="text" name="login" class="form-control" id="fullname" placeholder="${nickname_placeholder}" pattern="[a-zA-Z][a-zA-Z0-9]{5,25}" required>
+                        <label for="fullname"><fmt:message key="auth.nickname" /></label>
+                        <input type="text" name="login" class="form-control" id="fullname"
+                               placeholder="<fmt:message key="auth.nickname_placeholder" />"
+                               pattern="[a-zA-Z][a-zA-Z0-9]{5,25}" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">${password_label}</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="${password_placeholder}" pattern="[a-zA-Z0-9]{6,26}" required>
+                        <label for="password"><fmt:message key="auth.password" /></label>
+                        <input type="password" name="password" class="form-control" id="password"
+                               placeholder="<fmt:message key="auth.password_placeholder" />" pattern="[a-zA-Z0-9]{6,26}" required>
                     </div>
                     <div class="form-group">
-                        <label for="confirm_password">${confirm_password_label}</label>
-                        <input type="password" name="confirmedPassword" class="form-control" id="confirm_password" placeholder="${confirm_password_placeholder}" pattern="[a-zA-Z0-9]{6,26}" required>
+                        <label for="confirm_password"><fmt:message key="auth.confirm_password" /> </label>
+                        <input type="password" name="confirmedPassword" class="form-control" id="confirm_password"
+                               placeholder="<fmt:message key="auth.password_placeholder" />" pattern="[a-zA-Z0-9]{6,26}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">${registration_label}</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="auth.registration" /></button>
                 </form>
             </div>
         </div>

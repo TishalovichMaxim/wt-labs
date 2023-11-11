@@ -45,9 +45,9 @@
             <img src="images/${anime.getImagePath()}" alt="Anime Image" class="img-fluid">
         </div>
         <div class="col d-flex flex-column justify-content-center">
-            <p>Author: ${anime.getAuthorName()}</p>
-            <p>Rating: ${anime.getRating()}</p>
-            <p>Year: ${anime.getYear()}</p>
+            <p><fmt:message key="anime.author" /> : ${anime.getAuthorName()}</p>
+            <p><fmt:message key="anime.rating" /> : ${anime.getRating()}</p>
+            <p><fmt:message key="anime.year" /> : ${anime.getYear()}</p>
         </div>
     </div>
 </div>
@@ -61,14 +61,14 @@
                 </c:when>
                 <c:otherwise>
                     <div class="container">
-                        <h2>Your review:</h2>
+                        <h2><fmt:message key="review.your_review" /></h2>
                         <div class="row">
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <a href="/your_anime_list/?command=profile&id=${userReview.userId()}">
                                         <h5 class="card-title">${userReview.userLogin()}</h5>
                                     </a>
-                                    <h6>Rate: ${userReview.rate()}</h6>
+                                    <h6><fmt:message key="review.rate" /> ${userReview.rate()}</h6>
                                     <p class="card-text">${userReview.comment()}</p>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
         </c:if>
 
         <div class="container">
-            <h2>Reviews:</h2>
+            <h2><fmt:message key="anime.reviews"/>:</h2>
             <div class="row">
                 <c:forEach var="animeReview" items="${animeReviews}">
                     <c:if test="${user == null || (animeReview.userId() != user.getId())}">
@@ -88,7 +88,7 @@
                                 <a href="/your_anime_list/?command=profile&id=${animeReview.userId()}">
                                     <h5 class="card-title">${animeReview.userLogin()}</h5>
                                 </a>
-                                <h6>Rate: ${animeReview.rate()}</h6>
+                                <h6><fmt:message key="review.rate" />: ${animeReview.rate()}</h6>
                                 <p class="card-text">${animeReview.comment()}</p>
                             </div>
                         </div>
