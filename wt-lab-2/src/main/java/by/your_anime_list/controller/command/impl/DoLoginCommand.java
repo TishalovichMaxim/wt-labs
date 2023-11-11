@@ -1,8 +1,8 @@
 package by.your_anime_list.controller.command.impl;
 
 import by.your_anime_list.bean.User;
-import by.your_anime_list.controller.JspPage;
 import by.your_anime_list.controller.RedirectAddress;
+import by.your_anime_list.controller.SessionAttribute;
 import by.your_anime_list.controller.command.Command;
 import by.your_anime_list.controller.command.exception.CommandException;
 import by.your_anime_list.service.UserService;
@@ -16,6 +16,7 @@ public class DoLoginCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+
         UserService userService = ServiceFactory
                 .getInstance().getUserService();
         User user;
@@ -27,7 +28,7 @@ public class DoLoginCommand implements Command {
 
         HttpSession httpSession = request.getSession();
         if (user != null) {
-            httpSession.setAttribute("user", user);
+            httpSession.setAttribute(SessionAttribute.USER.getName(), user);
             return RedirectAddress.LOGIN_SUCCESS.getAddress();
         }
 

@@ -10,13 +10,22 @@ import by.your_anime_list.service.exception.ServiceException;
 public class UserServiceImpl implements UserService {
     @Override
     public User login(String login, String password) throws ServiceException {
+        CredentialsValidator credentialsValidator = new CredentialsValidator();
+        if ( !credentialsValidator.validLogin(login) ) {
+            return null;
+        }
+
+        if ( !credentialsValidator.validPassword(password) ) {
+            return null;
+        }
+
         User user;
         UserDAO userDAO = DAOFactory
                 .getInstance().getUserDAO();
 
         try {
             user = userDAO.signIn(login, password);
-        } catch (DAOException e) {
+        } catch ( DAOException e ) {
             throw new ServiceException(e.getMessage());
         }
         return user;
@@ -24,6 +33,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String login, String password, String confirmationPassword) throws ServiceException {
+        CredentialsValidator credentialsValidator = new CredentialsValidator();
+        if ( !credentialsValidator.validLogin(login) ) {
+            return null;
+        }
+
+        if ( !credentialsValidator.validPassword(password) || !password.equals(confirmationPassword)) {
+            return null;
+        }
+
         User user;
         UserDAO userDAO = DAOFactory
                 .getInstance().getUserDAO();
