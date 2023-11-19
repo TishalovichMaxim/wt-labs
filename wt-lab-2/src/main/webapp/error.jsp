@@ -25,6 +25,18 @@
             max-width: 100%;
             height: auto;
         }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-content: center;
+        }
     </style>
 </head>
 <body>
@@ -32,8 +44,8 @@
 <%@include file="navbar.jsp"%>
 <div class="container text-center">
     <div class="error-caption"><fmt:message key="error.error" /></div>
-    <img src="images/4044.jpg" alt="Error Image" class="error-image">
+    <img src="images/404.jpg" alt="Error Image" class="error-image">
 </div>
-<%@include file="footer.html"%>
+<%@include file="footer.jsp"%>
 </body>
 </html>

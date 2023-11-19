@@ -32,6 +32,17 @@
         font-size: 24px;
         margin-top: 10px;
     }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -42,12 +53,13 @@
     </div>
     <div class="d-flex justify-content-space-between">
         <div class="col d-flex justify-content-center">
-            <img src="images/${anime.getImagePath()}" alt="Anime Image" class="img-fluid">
+            <img src="images/${anime.getImagePath()}" alt="Anime Image" class="img-fluid" style="height: 400px">
         </div>
         <div class="col d-flex flex-column justify-content-center">
             <p><fmt:message key="anime.author" /> : ${anime.getAuthorName()}</p>
             <p><fmt:message key="anime.rating" /> : ${anime.getRating()}</p>
             <p><fmt:message key="anime.year" /> : ${anime.getYear()}</p>
+            <p><fmt:message key="anime.description" /> : ${anime.getDescription()}</p>
         </div>
     </div>
 </div>
@@ -56,20 +68,27 @@
     <div style="width: 66%;">
         <c:if test="${user != null}">
             <c:choose>
-                <c:when test="${userReview == null}">
-                    <%@include file="review_form.html"%>
+                <c:when test="${user_review == null}">
+                    <c:choose>
+                        <c:when test="${user.isBanned()}">
+                            <h3 class="alert alert-warning">You are banned, so you can't add a review :(</h3>
+                        </c:when>
+                        <c:otherwise>
+                            <%@include file="review_form.html"%>
+                        </c:otherwise>
+                    </c:choose>
                 </c:when>
                 <c:otherwise>
                     <div class="container">
-                        <h2><fmt:message key="review.your_review" /></h2>
+                        <h2><fmt:message key="review.your_review"/>:</h2>
                         <div class="row">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <a href="/your_anime_list/?command=profile&id=${userReview.userId()}">
-                                        <h5 class="card-title">${userReview.userLogin()}</h5>
+                                    <a href="/your_anime_list/controller?command=profile&user_id=${user_review.userId()}">
+                                        <h5 class="card-title">${user_review.userLogin()}</h5>
                                     </a>
-                                    <h6><fmt:message key="review.rate" /> ${userReview.rate()}</h6>
-                                    <p class="card-text">${userReview.comment()}</p>
+                                    <h6><fmt:message key="review.rate"/> ${user_review.rate()}</h6>
+                                    <p class="card-text">${user_review.comment()}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,11 +100,11 @@
         <div class="container">
             <h2><fmt:message key="anime.reviews"/>:</h2>
             <div class="row">
-                <c:forEach var="animeReview" items="${animeReviews}">
+                <c:forEach var="animeReview" items="${anime_reviews}">
                     <c:if test="${user == null || (animeReview.userId() != user.getId())}">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <a href="/your_anime_list/?command=profile&id=${animeReview.userId()}">
+                                <a href="/your_anime_list/controller?command=profile&user_id=${animeReview.userId()}">
                                     <h5 class="card-title">${animeReview.userLogin()}</h5>
                                 </a>
                                 <h6><fmt:message key="review.rate" />: ${animeReview.rate()}</h6>
@@ -98,8 +117,6 @@
         </div>
     </div>
 </div>
-
-<%@include file="footer.html"%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<%@include file="footer.jsp"%>
 </body>
 </html>

@@ -11,20 +11,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link text-light" href="/your_anime_list/controller?command=anime_list"><fmt:message key="navbar.anime" /></a>
+        <a class="nav-link text-light" href="/your_anime_list/controller?command=anime_list"><fmt:message key="navbar.anime"/></a>
         <c:choose>
           <c:when test="${role == 'Visitor'}">
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=login"><fmt:message key="navbar.login" /></a>
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=register"><fmt:message key="navbar.register" /></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=login"><fmt:message key="navbar.login"/></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=register"><fmt:message key="navbar.register"/></a>
           </c:when>
           <c:when test="${role == 'Administrator'}">
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=users"><fmt:message key="navbar.add_anime" /></a>
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=add_anime"><fmt:message key="navbar.users" /></a>
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=logout"><fmt:message key="navbar.logout" /></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=add_anime"><fmt:message key="navbar.add_anime"/></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=logout"><fmt:message key="navbar.logout"/></a>
           </c:when>
           <c:when test="${role == 'User'}">
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=profile"><fmt:message key="navbar.profile" /></a>
-            <a class="nav-link text-light" href="/your_anime_list/controller?command=logout"><fmt:message key="navbar.logout" /></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=profile&user_id=${user.getId()}"><fmt:message key="navbar.profile"/></a>
+            <a class="nav-link text-light" href="/your_anime_list/controller?command=logout"><fmt:message key="navbar.logout"/></a>
           </c:when>
         </c:choose>
       </div>

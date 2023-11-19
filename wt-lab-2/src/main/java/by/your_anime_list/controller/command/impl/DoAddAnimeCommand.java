@@ -1,8 +1,8 @@
 package by.your_anime_list.controller.command.impl;
 
 import by.your_anime_list.bean.Anime;
-import by.your_anime_list.controller.JspPage;
 import by.your_anime_list.controller.RedirectAddress;
+import by.your_anime_list.controller.RequestParameter;
 import by.your_anime_list.controller.command.Command;
 import by.your_anime_list.controller.command.exception.CommandException;
 import by.your_anime_list.service.AnimeService;
@@ -12,15 +12,34 @@ import by.your_anime_list.service.factory.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
+/**
+ * The DoAddAnimeCommand class is an implementation of the Command interface.
+ * It handles the request to add a new anime and performs the necessary operations to add the anime to the database.
+ */
 public class DoAddAnimeCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(DoAddAnimeCommand.class);
+    /**
+     * Executes the command to add a new anime and performs the necessary operations to add the anime to the database.
+     *
+     * @param request the HttpServletRequest object
+     * @return the address to redirect to after adding the anime successfully
+     * @throws CommandException if an error occurs while executing the command
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        String animeName = request.getParameter("animeName");
-        String authorName = request.getParameter("authorName");
+        String animeName = request.getParameter(
+                RequestParameter.ANIME_NAME.name().toLowerCase());
+        String authorName = request.getParameter(
+                RequestParameter.AUTHOR_NAME.name()).toLowerCase();
+        String animeDescription = request.getParameter(
+                RequestParameter.ANIME_DESCRIPTION.name().toLowerCase());
 
-        String animeYearString = request.getParameter("animeYear");
+        String animeYearString = request.getParameter(
+                RequestParameter.ANIME_YEAR.name().toLowerCase());
         int animeYear = Integer.parseInt(animeYearString);
 
         String imageName;
@@ -31,7 +50,7 @@ public class DoAddAnimeCommand implements Command {
                     .getServletContext()
                     .getRealPath("/images/");
 
-            Part part = request.getPart("animeImage");
+            Part part = request.getPart(RequestParameter.ANIME_IMAGE.name().toLowerCase());
             imageName = imageService.uploadImage(part, directoryName, animeName);
         } catch (ServiceException | ServletException | IOException e ) {
             throw new CommandException(e.getMessage());
@@ -43,7 +62,8 @@ public class DoAddAnimeCommand implements Command {
                 authorName,
                 Anime.RATING_STUB,
                 imageName,
-                animeYear
+                animeYear,
+                animeDescription
         );
 
         AnimeService animeService = ServiceFactory
@@ -54,11 +74,11 @@ public class DoAddAnimeCommand implements Command {
         try {
             result = animeService.addAnime(newAnime);
         } catch (ServiceException e) {
-            System.out.println("Exception in adding anime!");
+            logger.warn("Exception in adding anime: {}", e.getMessage());
             throw new CommandException(e.getMessage());
         }
 
-        System.out.println("Anime adding result = " + result);
+        logger.info("Anime adding result = {}", result);
         return RedirectAddress.ANIME_ADD_SUCCESS.getAddress();
     }
 }

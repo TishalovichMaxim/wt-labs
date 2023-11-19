@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Anime</title>
+    <title>Your Anime List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         html {
@@ -34,27 +34,29 @@
         <input type="hidden" name="command" value="do_add_anime" />
         <div class="form-group">
             <label for="animeName"><fmt:message key="add_anime.anime_name" /></label>
-            <input type="text" class="form-control" id="animeName" placeholder="Enter the anime name" name="animeName">
+            <input type="text" class="form-control" id="animeName" placeholder="Enter the anime name" name="anime_name">
         </div>
         <div class="form-group">
             <label for="authorName"><fmt:message key="anime.author" /></label>
-            <input type="text" class="form-control" id="authorName" placeholder="Enter the author name" name="authorName">
+            <input type="text" class="form-control" id="authorName" placeholder="Enter the author name" name="author_name">
         </div>
         <div class="form-group">
             <label for="animeYear"><fmt:message key="anime.year" /></label>
-            <input type="number" class="form-control" id="animeYear" placeholder="Enter the anime year" name="animeYear">
+            <input type="number" class="form-control" id="animeYear" placeholder="Enter the anime year" name="anime_year">
+        </div>
+        <div class="form-group">
+            <label for="animeDescription"><fmt:message key="anime.description"/></label>
+            <textarea name="anime_description" class="form-control" id="animeDescription" rows="5" placeholder="Enter anime description"></textarea>
         </div>
         <div class="form-group">
             <div>
                 <label for="animeImage"><fmt:message key="add_anime.anime_image" /></label>
             </div>
-            <input type="file" class="form-control-file" id="animeImage" name="animeImage">
+            <input type="file" class="form-control-file" id="animeImage" name="anime_image">
         </div>
         <button type="submit" class="btn btn-primary"><fmt:message key="add_anime.submit" /></button>
     </form>
 </div>
-<%@include file="footer.html"%>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<%@include file="footer.jsp"%>
 </body>
 </html>

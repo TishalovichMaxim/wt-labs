@@ -1,24 +1,14 @@
 package by.your_anime_list.dao.exception;
 
-import java.io.Serial;
-
+/**
+ * An exception that provides information of DAO layer error.
+ */
 public class DAOException extends Exception{
-    @Serial
-    private static final long serialVersionUID = 1L; //this class isn't serializable, so mb I need to delete it
-
-    public DAOException(){
-        super();
-    }
-
+    /**
+     * Constructs DAOException object with a given message
+     * @param message message of the exception
+     */
     public DAOException(String message){
         super(message);
-    }
-
-    public DAOException(Exception e){
-        super(e);
-    }
-
-    public DAOException(String message, Exception e){
-        super(message, e);
     }
 }

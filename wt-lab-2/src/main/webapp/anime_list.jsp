@@ -18,33 +18,56 @@
         .element-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: space-around;
+            width: 100%;
         }
+
         .element {
             width: calc(25% - 10px);
             margin-bottom: 20px;
         }
-    </style>
 
+        html {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100%;
+        }
+    </style>
 </head>
 <body>
 <%@include file="navbar.jsp"%>
-<div class="element-container">
-    <c:forEach var="anime" items="${animeList}">
-        <a href="?command=anime&id=${anime.getId()}">
-            <div class="container">
-                <div class="card element" style="width: 13rem;">
-                    <img src="images/${anime.getImagePath()}" class="card-img-top" alt="Anime Image">
-                    <div class="card-body">
-                        <h5 class="card-title">${anime.getName()}</h5>
+<div>
+    <div class="element-container">
+        <c:forEach var="anime" items="${anime_list}">
+            <div class="element d-flex align-items-center justify-content-center">
+                <a href="?command=anime&id=${anime.getId()}" class="card-element">
+                    <div class="card element" style="width: 13rem;">
+                        <img src="images/${anime.getImagePath()}" class="card-img-top" alt="Anime Image">
+                        <div class="card-body">
+                            <h5 class="card-title">${anime.getName()}</h5>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-        </a>
-    </c:forEach>
+        </c:forEach>
+    </div>
+    <div class="d-flex justify-content-center">
+        <form method="POST" action="/your_anime_list/controller">
+            <input type="hidden" name="page_num" value="${page_num}" />
+            <c:if test="${page_num != 1}">
+                <button type="submit" name="command" value="prev_anime" class="btn btn-primary">Prev</button>
+            </c:if>
+            <c:if test="${page_num != max_page_num}">
+                <button type="submit" name="command" value="next_anime" class="btn btn-primary">Next</button>
+            </c:if>
+        </form>
+    </div>
 </div>
-<%@include file="footer.html"%>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<%@include file="footer.jsp"%>
 </body>
 </html>

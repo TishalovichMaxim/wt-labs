@@ -11,22 +11,38 @@ import by.your_anime_list.service.exception.ServiceException;
 import by.your_anime_list.service.factory.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ * The AddReviewCommand class is an implementation of the Command interface.
+ * It handles the request to add a review for an anime and redirects to the appropriate page.
+ */
 public class AddReviewCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(AddReviewCommand.class);
+    /**
+     * Executes the command to add a review for an anime.
+     *
+     * @param request the HttpServletRequest object
+     * @return the address to redirect to after adding the review
+     * @throws CommandException if an error occurs while executing the command
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        String rateString = request.getParameter("reviewRate");
+        String rateString = request.getParameter(
+                RequestParameter.REVIEW_RATE.name().toLowerCase());
         float rate = Float.parseFloat(rateString);
 
-        String comment = request.getParameter("reviewComment");
+        String comment = request.getParameter(
+                RequestParameter.REVIEW_COMMENT.name().toLowerCase());
 
-        String animeIdString = request.getParameter("id");
+        String animeIdString = request.getParameter(
+                RequestParameter.ANIME_ID.name().toLowerCase());
         int animeId = Integer.parseInt(animeIdString);
 
-        ShowAnimeCommand showAnimeCommand = new ShowAnimeCommand();
-
         HttpSession httpSession = request.getSession();
-        User user = (User) httpSession.getAttribute(RequestParameter.USER.getName());
+        User user = (User) httpSession.getAttribute(RequestParameter
+                .USER.name().toLowerCase());
 
         try {
             ReviewService reviewService = ServiceFactory
@@ -43,8 +59,12 @@ public class AddReviewCommand implements Command {
             );
             reviewService.addReview(newAnimeReview);
         } catch (ServiceException e) {
+            logger.warn("Exception in reviewService.addReview: {}", e.getMessage());
             throw new CommandException(e.getMessage());
         }
-        return RedirectAddress.ANIME_ADD_SUCCESS.getAddress();
+
+        logger.info("Success in adding review.");
+        return RedirectAddress.REVIEW_ADD_SUCCESS.getAddress() + "&"
+        + RequestParameter.ID.name().toLowerCase() + "=" + animeIdString;
     }
 }

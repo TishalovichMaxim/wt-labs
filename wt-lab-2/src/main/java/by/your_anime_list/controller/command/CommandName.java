@@ -1,5 +1,8 @@
 package by.your_anime_list.controller.command;
 
+/**
+ * An enumeration of command names used in the anime list controller.
+ */
 public enum CommandName {
     ANIME_LIST,
     ANIME,
@@ -13,5 +16,9 @@ public enum CommandName {
     ADD_REVIEW,
     ADD_ANIME,
     DO_ADD_ANIME,
-    CHANGE_LANGUAGE
+    CHANGE_LANGUAGE,
+    BAN,
+    UNBAN,
+    PREV_ANIME,
+    NEXT_ANIME,
 }

@@ -3,7 +3,16 @@ package by.your_anime_list.service.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The CredentialsValidator class provides methods to validate login and password credentials.
+ */
 class CredentialsValidator {
+    /**
+     * Validates a login string.
+     *
+     * @param login the login string to validate
+     * @return true if the login is valid, false otherwise
+     */
     public boolean validLogin(String login) {
         if (login == null) {
             return false;
@@ -16,6 +25,12 @@ class CredentialsValidator {
         return matcher.matches();
     }
 
+    /**
+     * Validates a password string.
+     *
+     * @param password the password string to validate
+     * @return true if the password is valid, false otherwise
+     */
     public boolean validPassword(String password) {
         if (password == null) {
             return false;

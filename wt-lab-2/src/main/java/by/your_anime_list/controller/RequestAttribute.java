@@ -1,15 +1,13 @@
 package by.your_anime_list.controller;
 
+/**
+ * Java enum representing request attributes.
+ */
 public enum RequestAttribute {
-    PRIVILEGE_ROLE("role");
-
-    private final String name;
-
-    RequestAttribute(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    ROLE,
+    CURRENT_USER,
+    ANIME,
+    USER_REVIEW,
+    ANIME_REVIEWS,
+    USER
 }

@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label for="confirm_password"><fmt:message key="auth.confirm_password" /> </label>
-                        <input type="password" name="confirmedPassword" class="form-control" id="confirm_password"
+                        <input type="password" name="confirm_password" class="form-control" id="confirm_password"
                                placeholder="<fmt:message key="auth.password_placeholder" />" pattern="[a-zA-Z0-9]{6,26}" required>
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="auth.registration" /></button>
@@ -54,7 +54,6 @@
             </div>
         </div>
     </div>
-    <%@include file="footer.html"%>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <%@include file="footer.jsp"%>
 </body>
 </html>
