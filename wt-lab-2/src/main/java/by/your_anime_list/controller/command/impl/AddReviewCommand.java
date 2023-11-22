@@ -4,9 +4,11 @@ import by.your_anime_list.bean.AnimeReview;
 import by.your_anime_list.bean.User;
 import by.your_anime_list.controller.RedirectAddress;
 import by.your_anime_list.controller.RequestParameter;
+import by.your_anime_list.controller.SessionAttribute;
 import by.your_anime_list.controller.command.Command;
 import by.your_anime_list.controller.command.exception.CommandException;
 import by.your_anime_list.service.ReviewService;
+import by.your_anime_list.service.UserService;
 import by.your_anime_list.service.exception.ServiceException;
 import by.your_anime_list.service.factory.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,10 +46,24 @@ public class AddReviewCommand implements Command {
         User user = (User) httpSession.getAttribute(RequestParameter
                 .USER.name().toLowerCase());
 
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        UserService userService = serviceFactory
+                .getUserService();
+
+        ReviewService reviewService = serviceFactory
+                .getReviewService();
         try {
-            ReviewService reviewService = ServiceFactory
-                    .getInstance()
-                    .getReviewService();
+            user = userService.getUser(user.getId());
+            if ( user == null ) {
+                throw new CommandException("No such user in db.");
+            }
+
+            if ( user.isBanned() ) {
+                throw new CommandException("Banned user can't add a review");
+            }
+
+            httpSession.setAttribute(SessionAttribute.USER.getName(),
+                    user);
 
             AnimeReview newAnimeReview = new AnimeReview(
                     -1,

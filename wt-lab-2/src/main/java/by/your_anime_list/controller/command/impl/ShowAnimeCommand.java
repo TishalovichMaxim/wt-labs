@@ -11,6 +11,7 @@ import by.your_anime_list.controller.command.Command;
 import by.your_anime_list.controller.command.exception.CommandException;
 import by.your_anime_list.service.AnimeService;
 import by.your_anime_list.service.ReviewService;
+import by.your_anime_list.service.UserService;
 import by.your_anime_list.service.exception.ServiceException;
 import by.your_anime_list.service.factory.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +51,9 @@ public class ShowAnimeCommand implements Command {
         AnimeService animeService = serviceFactory
                 .getAnimeService();
 
+        UserService userService = serviceFactory
+                .getUserService();
+
         try {
             anime = animeService.getAnime(animeId);
             animeReviews = reviewService.getAnimeReviews(animeId);
@@ -57,6 +61,11 @@ public class ShowAnimeCommand implements Command {
             HttpSession httpSession = request.getSession();
             user = (User) httpSession.getAttribute(SessionAttribute.USER.getName());
             if ( user != null ) {
+                user = userService.getUser(user.getId());
+                if ( user == null ) {
+                    throw new CommandException("There is no such user in db.");
+                }
+                httpSession.setAttribute(SessionAttribute.USER.getName(), user);
                 userReview = reviewService.getReview(user.getId(), animeId);
             }
         } catch (ServiceException e) {

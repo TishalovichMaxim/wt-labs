@@ -12,7 +12,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>Your Anime List</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <style>
     .element-container {
@@ -66,12 +66,12 @@
 
 <div class="d-flex flex-column align-items-center">
     <div style="width: 66%;">
-        <c:if test="${user != null}">
+        <c:if test="${requestScope.user != null}">
             <c:choose>
                 <c:when test="${user_review == null}">
                     <c:choose>
                         <c:when test="${user.isBanned()}">
-                            <h3 class="alert alert-warning">You are banned, so you can't add a review :(</h3>
+                            <h3 class="alert alert-warning"><fmt:message key="review.banned_label"/></h3>
                         </c:when>
                         <c:otherwise>
                             <%@include file="review_form.html"%>

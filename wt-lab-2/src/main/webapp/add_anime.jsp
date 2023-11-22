@@ -33,20 +33,21 @@
     <form method="POST" action="/your_anime_list/controller" enctype="multipart/form-data" >
         <input type="hidden" name="command" value="do_add_anime" />
         <div class="form-group">
-            <label for="animeName"><fmt:message key="add_anime.anime_name" /></label>
-            <input type="text" class="form-control" id="animeName" placeholder="Enter the anime name" name="anime_name">
+            <label for="animeName"><fmt:message key="add_anime.anime_name"/></label>
+            <input type="text" class="form-control" id="animeName" placeholder="<fmt:message key="add_anime.name_placeholder"/>" name="anime_name">
         </div>
         <div class="form-group">
             <label for="authorName"><fmt:message key="anime.author" /></label>
-            <input type="text" class="form-control" id="authorName" placeholder="Enter the author name" name="author_name">
+            <input type="text" class="form-control" id="authorName" placeholder="<fmt:message key="add_anime.author_placeholder"/>" name="author_name">
         </div>
         <div class="form-group">
             <label for="animeYear"><fmt:message key="anime.year" /></label>
-            <input type="number" class="form-control" id="animeYear" placeholder="Enter the anime year" name="anime_year">
+            <input type="number" class="form-control" id="animeYear" placeholder="<fmt:message key="add_anime.year_placeholder"/>" name="anime_year">
         </div>
         <div class="form-group">
             <label for="animeDescription"><fmt:message key="anime.description"/></label>
-            <textarea name="anime_description" class="form-control" id="animeDescription" rows="5" placeholder="Enter anime description"></textarea>
+            <textarea name="anime_description" class="form-control" id="animeDescription"
+                      rows="5" placeholder="<fmt:message key="add_anime.description_placeholder"/>"></textarea>
         </div>
         <div class="form-group">
             <div>

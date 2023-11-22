@@ -113,7 +113,7 @@ public class SQLUserDAO implements UserDAO {
     @Override
     public User register(String login, String password) throws DAOException {
         int roleId = 3;
-        float statusValue = -1.0f;
+        float statusValue = 0.0f;
         String imagePath = null;
         boolean isBanned = false;
         String passwordHash = Hashing.sha256()

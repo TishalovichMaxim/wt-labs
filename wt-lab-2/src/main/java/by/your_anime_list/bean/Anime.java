@@ -5,7 +5,7 @@ package by.your_anime_list.bean;
  */
 public class Anime {
     public static final int ID_STUB = -1;
-    public static final float RATING_STUB = -1.0f;
+    public static final float RATING_STUB = 6.0f;
 
     private final int id;
     private final String name;

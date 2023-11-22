@@ -34,13 +34,17 @@ public class DoAddAnimeCommand implements Command {
         String animeName = request.getParameter(
                 RequestParameter.ANIME_NAME.name().toLowerCase());
         String authorName = request.getParameter(
-                RequestParameter.AUTHOR_NAME.name()).toLowerCase();
+                RequestParameter.AUTHOR_NAME.name().toLowerCase());
         String animeDescription = request.getParameter(
                 RequestParameter.ANIME_DESCRIPTION.name().toLowerCase());
 
         String animeYearString = request.getParameter(
                 RequestParameter.ANIME_YEAR.name().toLowerCase());
         int animeYear = Integer.parseInt(animeYearString);
+
+        animeName = animeName.trim();
+        authorName = authorName.trim();
+        animeDescription = animeDescription.trim();
 
         String imageName;
 
