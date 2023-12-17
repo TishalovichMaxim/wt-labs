@@ -6,27 +6,31 @@ import by.your_anime_list.dao.UserDAO;
 import by.your_anime_list.dao.exception.DAOException;
 import com.google.common.hash.Hashing;
 import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
+@Transactional
 public class HiberUserDAO implements UserDAO {
 
-    @PersistenceContext
-    private EntityManagerFactory emf;
+    private SessionFactory sessionFactory;
 
     @Override
     public User signIn(String login, String password) throws DAOException {
+        Session session = sessionFactory.getCurrentSession();
         User user;
-        try ( EntityManager em = emf.createEntityManager(); ) {
-            em.getTransaction().begin();
 
-            user = em.createQuery("SELECT u FROM User u WHERE u.login = ?1", User.class)
+        try {
+            user = session.createQuery("SELECT u FROM User u WHERE u.login = ?1", User.class)
                             .setParameter(1, login)
                             .getSingleResult();
 
-            em.getTransaction().commit();
         } catch (PersistenceException e) {
             user = null;
         }
@@ -45,33 +49,27 @@ public class HiberUserDAO implements UserDAO {
 
     @Override
     public User register(String login, String password) throws DAOException {
+        Session session = sessionFactory.getCurrentSession();
         User user = null;
 
-        try ( EntityManager em = emf.createEntityManager(); ) {
+        List<User> oldUser = session.createQuery("SELECT u FROM User u WHERE u.login = ?1", User.class)
+                .setParameter(1, login)
+                .getResultList();
 
-            em.getTransaction().begin();
+        if (oldUser.size() == 0) {
+            String passwordHash = Hashing.sha256()
+                    .hashString(password, StandardCharsets.UTF_8)
+                    .toString();
 
-            List<User> oldUser = em.createQuery("SELECT u FROM User u WHERE u.login = ?1", User.class)
-                    .setParameter(1, login)
-                    .getResultList();
+            user = new User(
+                    login,
+                    passwordHash,
+                    UserPrivilegeRole.USER,
+                    5.0f,
+                    false
+            );
 
-            if (oldUser.size() == 0) {
-                String passwordHash = Hashing.sha256()
-                        .hashString(password, StandardCharsets.UTF_8)
-                        .toString();
-
-                user = new User(
-                        login,
-                        passwordHash,
-                        UserPrivilegeRole.USER,
-                        5.0f,
-                        false
-                );
-
-                em.persist(user);
-            }
-
-            em.getTransaction().commit();
+            session.persist(user);
         }
 
         return user;
@@ -79,54 +77,40 @@ public class HiberUserDAO implements UserDAO {
 
     @Override
     public User getUser(int userId) throws DAOException {
-        User user;
-        try ( EntityManager em = emf.createEntityManager(); ) {
-
-            em.getTransaction().begin();
-
-            user = em.find(User.class, userId);
-
-            em.getTransaction().commit();
-        }
-
-        return user;
+        Session session = sessionFactory.getCurrentSession();
+        return session.find(User.class, userId);
     }
 
     @Override
     public void ban(int userId) throws DAOException {
-        try ( EntityManager em = emf.createEntityManager(); ) {
+        Session session = sessionFactory.getCurrentSession();
 
-            em.getTransaction().begin();
-
-            User user = em.find(User.class, userId);
-            if (user == null) {
-                throw new DAOException("There is no user with id = " + userId);
-            }
-
-            user.setBanned(true);
-
-            em.merge(user);
-
-            em.getTransaction().commit();
+        User user = session.find(User.class, userId);
+        if (user == null) {
+            throw new DAOException("There is no user with id = " + userId);
         }
+
+        user.setBanned(true);
+
+        session.merge(user);
     }
 
     @Override
     public void unban(int userId) throws DAOException {
-        try ( EntityManager em = emf.createEntityManager(); ) {
+        Session session = sessionFactory.getCurrentSession();
 
-            em.getTransaction().begin();
-
-            User user = em.find(User.class, userId);
-            if (user == null) {
-                throw new DAOException("There is no user with id = " + userId);
-            }
-
-            user.setBanned(false);
-
-            em.merge(user);
-
-            em.getTransaction().commit();
+        User user = session.find(User.class, userId);
+        if (user == null) {
+            throw new DAOException("There is no user with id = " + userId);
         }
+
+        user.setBanned(false);
+
+        session.merge(user);
+    }
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

@@ -1,7 +1,6 @@
 package by.your_anime_list.controller.instances;
 
 import by.your_anime_list.bean.Anime;
-import by.your_anime_list.controller.JspPage;
 import by.your_anime_list.controller.RequestAttribute;
 import by.your_anime_list.controller.RequestParameter;
 import by.your_anime_list.service.AnimeService;
@@ -32,11 +31,6 @@ public class HomeController {
         request.setAttribute(RequestAttribute.PAGE_NUM.name().toLowerCase(), pageNumber);
 
         return "home";
-    }
-
-    @GetMapping("/error")
-    public String error(HttpServletRequest request) {
-        return JspPage.ERROR.name().toLowerCase();
     }
 
     @Autowired

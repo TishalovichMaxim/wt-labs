@@ -1,12 +1,10 @@
 package by.your_anime_list.config;
 
-import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -34,13 +32,6 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean rofl = new LocalContainerEntityManagerFactoryBean();
-        rofl.setPersistenceUnitName("pu");
-        return rofl.getObject();
-    }
-
-    @Bean
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
@@ -51,4 +42,6 @@ public class SpringConfig implements WebMvcConfigurer {
                 .addResourceHandler("/images/**")
                 .addResourceLocations("/images/");
     }
+
+
 }
